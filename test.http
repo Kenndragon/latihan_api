@@ -1,0 +1,22 @@
+### register
+POST http://localhost:3000/api/users/register
+X-API-Key : RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "kenndragon",
+    "password": "kennyzx",
+    "role_id": 2
+}
+
+### login
+POST http://localhost:3000/api/users/login
+X-API-Key : RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "tes",
+    "password": "tes123"
+}
