@@ -5,8 +5,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "username": "kenndragon",
-    "password": "kennyzx",
+    "username": "jo",
+    "password": "jojo",
     "role_id": 2
 }
 
@@ -17,6 +17,20 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "username": "tes",
-    "password": "tes123"
+    "username": "tony",
+    "password": "tony123"
 }
+
+### login not admin
+POST http://localhost:3000/api/users/login
+X-API-Key : RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "kenndragon",
+    "password": "kennyzx"
+}
+
+###Get all user
+GET http://localhost:3000/api/users/all

@@ -23,8 +23,18 @@ func (repository *UserRepositoryImpl) Register(db *gorm.DB, user domain.User) do
 
 func (repository *UserRepositoryImpl) Login(db *gorm.DB, username string) (domain.User, error) {
 	var user domain.User
-	if err := db.Where("username = ?", username).First(&user).Error; err != nil {
-		return user, err
+	if err := db.Where("username = ?", username).
+		Preload("Role").
+		First(&user).Error; err != nil {
+		return domain.User{}, err
 	}
 	return user, nil
+}
+
+func (repository *UserRepositoryImpl) FindAll(db *gorm.DB) []domain.User {
+	var users []domain.User
+	if err := db.Preload("Role").Find(&users).Error; err != nil {
+		helper.PanicError(err)
+	}
+	return users
 }
