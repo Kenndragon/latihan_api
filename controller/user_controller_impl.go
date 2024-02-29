@@ -46,7 +46,8 @@ func (controller *UserControllerImpl) Login(writer http.ResponseWriter, request 
 	helper.ReadFromRequestBody(request, &requestBody)
 	userResponse, err := controller.UserService.Login(requestBody)
 	if err != nil {
-		exception.ErrorHandler(writer, request, err)
+		exception.ErrorHandler(writer, request, exception.NewNotFoundError(err.Error()))
+		return
 	}
 
 	expTime := time.Now().Add(time.Minute * 5)

@@ -1,6 +1,5 @@
 ### register
 POST http://localhost:3000/api/users/register
-X-API-Key : RAHASIA
 Accept: application/json
 Content-Type: application/json
 
@@ -12,7 +11,6 @@ Content-Type: application/json
 
 ### login
 POST http://localhost:3000/api/users/login
-X-API-Key : RAHASIA
 Accept: application/json
 Content-Type: application/json
 
@@ -23,13 +21,12 @@ Content-Type: application/json
 
 ### login not admin
 POST http://localhost:3000/api/users/login
-X-API-Key : RAHASIA
 Accept: application/json
 Content-Type: application/json
 
 {
-    "username": "kenndragon",
-    "password": "kennyzx"
+    "username": "jo",
+    "password": "jojo"
 }
 
 ###Get all user
