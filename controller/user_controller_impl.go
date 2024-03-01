@@ -36,7 +36,7 @@ func (controller *UserControllerImpl) Register(writer http.ResponseWriter, reque
 	webResponse := web.WebResponse{
 		Code:   200,
 		Status: "OK",
-		Data:   "Register successful",
+		Data:   "Register successful, please login",
 	}
 	helper.WriteToResponseBody(writer, webResponse)
 }
@@ -73,7 +73,7 @@ func (controller *UserControllerImpl) Login(writer http.ResponseWriter, request 
 
 	webResponse := web.WebResponse{
 		Code:   200,
-		Status: "Login successful",
+		Status: "Login successful, hello " + userResponse.Username,
 		Data:   userResponse,
 	}
 	helper.WriteToResponseBody(writer, webResponse)
@@ -84,7 +84,6 @@ func (controller *UserControllerImpl) FindAll(writer http.ResponseWriter, reques
 		panic(exception.NewNotAuthorize("login first"))
 
 	}
-
 	tokenString := cookie.Value
 	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return JWT_KEY, nil
@@ -96,20 +95,16 @@ func (controller *UserControllerImpl) FindAll(writer http.ResponseWriter, reques
 
 	claims, ok := token.Claims.(*Claims)
 	if !ok {
-		// If token is expired, return "Login first" response
 		panic(exception.NewNotAuthorize("login first"))
 
 	}
 
 	expirationTime := claims.ExpiresAt.Time.Unix()
-
-	// Check if the token has expired
 	if expirationTime < time.Now().Unix() {
 		panic(exception.NewNotAuthorize("login first"))
 
 	}
 
-	// Check if the user has the required role (roleid == 1)
 	if claims.RoleID != 1 {
 		panic(exception.NewNotAuthorize("Only for admin"))
 
@@ -121,6 +116,31 @@ func (controller *UserControllerImpl) FindAll(writer http.ResponseWriter, reques
 		Code:   http.StatusOK,
 		Status: "OK",
 		Data:   userResponses,
+	}
+	helper.WriteToResponseBody(writer, webResponse)
+}
+
+func (controller *UserControllerImpl) Logout(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	_, err := request.Cookie("token")
+	if err != nil {
+		webResponse := web.WebResponse{
+			Code:   http.StatusUnauthorized,
+			Status: "No user to log out",
+			Data:   "You haven't logged in yet",
+		}
+		helper.WriteToResponseBody(writer, webResponse)
+		return
+	}
+
+	http.SetCookie(writer, &http.Cookie{
+		Name:    "token",
+		Expires: time.Now(),
+	})
+
+	webResponse := web.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   "logout successful",
 	}
 	helper.WriteToResponseBody(writer, webResponse)
 }

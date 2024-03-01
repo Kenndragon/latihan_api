@@ -16,6 +16,11 @@
                 "tags": ["Register user"],
                 "description": "Register user",
                 "summary": "Register user",
+                "security": [
+                    {
+                        "UserAuth":[]
+                    }
+                ],
                 "requestBody":{
                     "content": {
                         "application/json":{
@@ -66,6 +71,11 @@
                 "tags": ["Login user"],
                 "description": "Login user",
                 "summary": "Login user",
+                "security": [
+                    {
+                        "UserAuth":[]
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -137,8 +147,7 @@
                 "summary": "View all users",
                 "security": [
                     {
-                        "cookieAuth": [],
-                        "roleCheck": []
+                        "UserAuth":[]
                     }
                 ],
                 "responses": {
@@ -179,19 +188,50 @@
                     }
                 }
             }
+        },
+        "/logout": {
+            "get": {
+                "description": "User logout",
+                "tags": ["User logout"],
+                "summary": "User logout",
+                "security": [
+                    {
+                        "UserAuth":[]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Register successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "securitySchemes": {
-            "cookieAuth": {
+            "UserAuth":{
                 "type": "apiKey",
-                "in": "cookie",
-                "name": "token"
-            },
-            "roleCheck": {
-                "type": "apiKey",
-                "in": "cookie",
-                "name": "role_id"
+                "in": "header",
+                "name": "X-API-KEY",
+                "description": "Authentication for API"
             }
         }
     }

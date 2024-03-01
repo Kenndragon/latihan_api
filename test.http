@@ -1,16 +1,18 @@
 ### register
 POST http://localhost:3000/api/users/register
+X-API-Key : RAHASIA
 Accept: application/json
 Content-Type: application/json
 
 {
-    "username": "jo",
-    "password": "jojo",
-    "role_id": 2
+    "username": "kev",
+    "password": "kevin123",
+    "role_id": 1
 }
 
 ### login
 POST http://localhost:3000/api/users/login
+X-API-Key : RAHASIA
 Accept: application/json
 Content-Type: application/json
 
@@ -21,6 +23,7 @@ Content-Type: application/json
 
 ### login not admin
 POST http://localhost:3000/api/users/login
+X-API-Key : RAHASIA
 Accept: application/json
 Content-Type: application/json
 
@@ -29,5 +32,10 @@ Content-Type: application/json
     "password": "jojo"
 }
 
-###Get all user
+###Get all user only for admin
 GET http://localhost:3000/api/users/all
+X-API-Key : RAHASIA
+
+###logout
+GET http://localhost:3000/api/users/logout
+X-API-Key : RAHASIA

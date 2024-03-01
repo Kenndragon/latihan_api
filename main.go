@@ -4,6 +4,7 @@ import (
 	"latihan_api/app"
 	"latihan_api/controller"
 	"latihan_api/helper"
+	"latihan_api/middleware"
 	"latihan_api/repository"
 	"latihan_api/service"
 	"net/http"
@@ -21,7 +22,7 @@ func main() {
 
 	server := http.Server{
 		Addr:    "localhost:3000",
-		Handler: router,
+		Handler: middleware.NewAuthMiddleware(router),
 	}
 	err := server.ListenAndServe()
 	helper.PanicError(err)

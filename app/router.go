@@ -13,6 +13,7 @@ func NewRouter(userController controller.UserController) *httprouter.Router {
 	router.POST("/api/users/login", userController.Login)
 	router.GET("/api/users/all", (userController.FindAll))
 	router.POST("/api/users/register", userController.Register)
+	router.GET("/api/users/logout", (userController.Logout))
 
 	router.PanicHandler = exception.ErrorHandler
 
