@@ -50,7 +50,7 @@ func (controller *UserControllerImpl) Login(writer http.ResponseWriter, request 
 		return
 	}
 
-	expTime := time.Now().Add(time.Minute * 15)
+	expTime := time.Now().Add(time.Hour * 1)
 	claims := &Claims{
 		Username: requestBody.Username,
 		RoleID:   userResponse.RoleID,
