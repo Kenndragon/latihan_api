@@ -13,7 +13,7 @@
     "paths": {
         "/register": {
             "post": {
-                "tags": ["Register user"],
+                "tags": ["API"],
                 "description": "Register user",
                 "summary": "Register user",
                 "security": [
@@ -68,7 +68,7 @@
         },
         "/login": {
             "post": {
-                "tags": ["Login user"],
+                "tags": ["API"],
                 "description": "Login user",
                 "summary": "Login user",
                 "security": [
@@ -143,7 +143,7 @@
         "/all": {
             "get": {
                 "description": "View all users",
-                "tags": ["View all users"],
+                "tags": ["API"],
                 "summary": "View all users",
                 "security": [
                     {
@@ -192,7 +192,7 @@
         "/logout": {
             "get": {
                 "description": "User logout",
-                "tags": ["User logout"],
+                "tags": ["API"],
                 "summary": "User logout",
                 "security": [
                     {
